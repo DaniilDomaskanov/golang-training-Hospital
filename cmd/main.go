@@ -6,7 +6,6 @@ import (
 	"golang-training-Hospital/pkg/db"
 	"log"
 	"os"
-	"time"
 )
 
 var (
@@ -48,7 +47,7 @@ func main() {
 	doc := data.Doctors{
 		FirstName:        "Valery",
 		LastName:         "Aleksandrov",
-		DateOfBirth:      time.Now(),
+		DateOfBirth:      "2017-01-22",
 		Salary:           "12131.121",
 		CurrentBusyState: false,
 		GenderId:         2,

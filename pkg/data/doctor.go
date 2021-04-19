@@ -3,14 +3,13 @@ package data
 import (
 	"fmt"
 	"gorm.io/gorm"
-	"time"
 )
 
 type Doctors struct {
-	DoctorId         int       `gorm:"primaryKey; doctor_id; autoIncrement"`
-	FirstName        string    `gorm:"first_name"`
-	LastName         string    `gorm:"last_name"`
-	DateOfBirth      time.Time `gorm:"date_of_birth"`
+	DoctorId         int    `gorm:"primaryKey; doctor_id; autoIncrement"`
+	FirstName        string `gorm:"first_name"`
+	LastName         string `gorm:"last_name"`
+	DateOfBirth      string `gorm:"date_of_birth"`
 	Salary           string
 	CurrentBusyState bool `gorm:"current_busy_state"`
 	GenderId         int  `gorm:"gender_id"`
