@@ -2,10 +2,11 @@ package main
 
 import (
 	"fmt"
-	"golang-training-Hospital/pkg/data"
-	"golang-training-Hospital/pkg/db"
 	"log"
 	"os"
+
+	"golang-training-Hospital/pkg/data"
+	"golang-training-Hospital/pkg/db"
 )
 
 var (
