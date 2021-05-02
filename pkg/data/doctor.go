@@ -6,6 +6,7 @@ import (
 	"gorm.io/gorm"
 )
 
+//Doctors - describe database entity doctors
 type Doctors struct {
 	DoctorId         int    `gorm:"primaryKey; doctor_id; autoIncrement"`
 	FirstName        string `gorm:"first_name"`
@@ -17,14 +18,17 @@ type Doctors struct {
 	SpecialityId     int  `gorm:"speciality_id"`
 }
 
+//DoctorData - wrapper struct for *gorm.DB
 type DoctorData struct {
 	db *gorm.DB
 }
 
+//NewDoctor - create a new DoctorData instance
 func NewDoctor(db *gorm.DB) *DoctorData {
 	return &DoctorData{db: db}
 }
 
+//ReadAll - get all records from the doctors table
 func (d DoctorData) ReadAll() ([]Doctors, error) {
 	var doctors []Doctors
 	result := d.db.Find(&doctors)
@@ -34,6 +38,8 @@ func (d DoctorData) ReadAll() ([]Doctors, error) {
 	return doctors, nil
 }
 
+//CreateDoctor - create record in the doctors table
+//doctor - values that used to create records from the table.The type is Doctors
 func (d DoctorData) CreateDoctor(doctor Doctors) (int, error) {
 	result := d.db.Create(&doctor)
 	if result.Error != nil {
@@ -42,6 +48,9 @@ func (d DoctorData) CreateDoctor(doctor Doctors) (int, error) {
 	return doctor.DoctorId, nil
 }
 
+//UpdateDoctor - update record in the doctors table using id
+//id - record's id. The type is int
+//updatedValues - values that used to update records from the table.The type is Doctors
 func (d DoctorData) UpdateDoctor(id int, updatedValues Doctors) (int, error) {
 	var doctor Doctors
 	resSearch := d.db.First(&doctor, id)
@@ -55,6 +64,8 @@ func (d DoctorData) UpdateDoctor(id int, updatedValues Doctors) (int, error) {
 	return doctor.DoctorId, nil
 }
 
+//DeleteDoctor - delete record from doctors table using id
+//id - record's id. The type is int
 func (d DoctorData) DeleteDoctor(id int) error {
 	result := d.db.Delete(&Doctors{}, id)
 	if result.Error != nil {
@@ -63,6 +74,7 @@ func (d DoctorData) DeleteDoctor(id int) error {
 	return nil
 }
 
+//ExecInnerJoin - execute inner join query
 func (d DoctorData) ExecInnerJoin() error {
 	rows, err := d.db.Table("doctors").Select("doctors.doctor_id, speciality.speciality_name").Joins(
 		"INNER JOIN speciality ON doctors.speciality_id = speciality.speciality_id").Rows()

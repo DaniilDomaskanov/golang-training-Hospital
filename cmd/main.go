@@ -1,12 +1,17 @@
 package main
 
 import (
-	"fmt"
+ 
 	"log"
+	"net"
+	"net/http"
 	"os"
 
-	"golang-training-Hospital/pkg/data"
-	"golang-training-Hospital/pkg/db"
+	"github.com/DaniilDomaskanov/golang-training-Hospital/pkg/api"
+	"github.com/DaniilDomaskanov/golang-training-Hospital/pkg/data"
+	"github.com/DaniilDomaskanov/golang-training-Hospital/pkg/db"
+
+	"github.com/gorilla/mux"
 )
 
 var (
@@ -44,38 +49,21 @@ func main() {
 	if err != nil {
 		log.Fatalf("can't connect to database, err2: %v", err)
 	}
-	doctor := data.NewDoctor(connection)
-	doc := data.Doctors{
-		FirstName:        "Valery",
-		LastName:         "Aleksandrov",
-		DateOfBirth:      "2017-01-22",
-		Salary:           "12131.121",
-		CurrentBusyState: false,
-		GenderId:         2,
-		SpecialityId:     1,
-	}
-	id, errCreat := doctor.CreateDoctor(doc)
-	if errCreat != nil {
-		log.Println(errCreat)
-	}
-	fmt.Println("Inserted doctor id is:", id)
-	errDel := doctor.DeleteDoctor(5)
-	if errDel != nil {
-		log.Println(errDel)
-	}
-	valuesData := data.Doctors{
-		FirstName: "Dmitry",
-		LastName:  "Putkov",
-	}
-	idSearch, err2 := doctor.UpdateDoctor(2, valuesData)
-	if err2 != nil {
-		log.Println(err2)
-	}
-	fmt.Println("Updated doctor id is:", idSearch)
-	doctors, err := doctor.ReadAll()
+	// 2. create router that allows to set routes
+	r := mux.NewRouter()
+	// 3. connect to data layer
+	doctorData := data.NewDoctor(connection)
+	// 4. send data layer to api layer
+	api.ServeDoctorResources(r, *doctorData)
+	// 5. cors for making requests from any domain
+	r.Use(mux.CORSMethodMiddleware(r))
+
+	// 6. start server
+	listener, err := net.Listen("tcp", ":8080")
 	if err != nil {
-		log.Println(err)
+		log.Fatal("Server Listen port...")
 	}
-	log.Println(doctors)
-	doctor.ExecInnerJoin()
+	if err := http.Serve(listener, r); err != nil {
+		log.Fatal("Server has been crashed...")
+	}
 }

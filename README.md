@@ -1,34 +1,22 @@
-## Task 3
-
 ## Description
 
-Create separate github repo with the following pattern(cobol case): `golang-training-YOUR-DATABASE-CHEMA-NAME`, Example: golang-training-theater.
+Application for mantaining hospital with such operations as in table below:
 
-Database schema names:
-- Theater: `@Alexandr59`
-- Hospital: `@DaniilDomaskanov`
-- Shop: `@dimaxdqwerty`
-- Enterprise: `@jeka2708`
-- Library: `@PutskouDzmitry`
-- University: `@tonymontanapaffpaff`
-- Social network: `@VSiniak12`
-- Restaurant: `@miladouski`
 
-### First part
-1. Create your `PostgresSQL`database consisting of 5 tables and 2 lookup tables (without links to parent tables), if necessary, you can create third. Your database should have a third normal form.
-Create a data schema in `draw.io` (you can in access), add the image with your schema to repo with task implementation.
-2. Add SQL script that creates tables, and add 5 records to each table. Save the script to the `script.sql` file.
-3. Required type of fields in the database:
-- `number`
-- `date`
-- `string`
-- `boolean`
+|             Path            | Method | Description                           | Body example                                                                                                                                                                                                                     |
+|:---------------------------:|--------|---------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| /doctors                   | GET    | get all doctors                      | ` {"DoctorId":3,"FirstName":"Victor","LastName":"Pashkevich","DateOfBirth":"2001-07-25","Salary":"570.14","CurrentBusyState":false,"GenderId":2,"SpecialityId":5},{"DoctorId":4,"FirstName":"Eva","LastName":"Dushkevich","DateOfBirth":"2002-10-22","Salary":"790.77","CurrentBusyState":true,"GenderId":1,"SpecialityId":1},{"DoctorId":5,"FirstName":"Nikita","LastName":"Miladovski","DateOfBirth":"1995-04-18","Salary":"680.56","CurrentBusyState":false,"GenderId":2,"SpecialityId":5},{"DoctorId":2,"FirstName":"Dmitry","LastName":"Putkov","DateOfBirth":"1999-02-13","Salary":"5000.54","CurrentBusyState":true,"GenderId":2,"SpecialityId":4},{"DoctorId":1,"FirstName":"Danik","LastName":"Voinov","DateOfBirth":"2000-09-12","Salary":"1250.12","CurrentBusyState":false,"GenderId":2,"SpecialityId":1} `|
+| /create                   | POST   | create new doctor instance                    |                                                                                                                                                                                                                                  |
+| /update/id              | PUT    | update doctor by the id                 | { "firstName":"Danik",  "lastName":"Voronin" }        |                                             
+| /delete/id              | DELETE | delete doctor by the id                 |                                                       |                                                                                                                                                            
 
-### Second part
-Write a Golang application for manipulating data from the database created above. Use Standard library or `Gorm` library.
-What should be present in the code:
- - Create the necessary entities at your discretion. 
- - At least one JOIN (all other requests at your discretion);
- - Organize CRUD (create, read, update, delete) operations
+## Usage 
+1. Run server on port `8080`
+	`go run cmd/main.go`
+2.  Open URL
+`http://localhost:8080/`
 
-#### Let me know if you have any questions ;)
+## Usage unit tests
+To run unit tests type:
+`go test ./...`
+

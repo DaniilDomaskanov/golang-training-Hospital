@@ -7,6 +7,7 @@ import (
 	"gorm.io/gorm"
 )
 
+//GetConnection it's return a new connection in db
 func GetConnection(host, port, user, dbname, password, sslmode string) (*gorm.DB, error) {
 	args := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s sslmode=%s",
 		host, user, password, dbname, port, sslmode)
