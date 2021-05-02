@@ -1,14 +1,18 @@
 package main
 
 import (
-	"github.com/gorilla/mux"
-	"golang-training-Hospital/pkg/api"
-	"golang-training-Hospital/pkg/data"
-	"golang-training-Hospital/pkg/db"
 	"log"
 	"net"
 	"net/http"
 	"os"
+
+	//"github.com/DaniilDomaskanov/golang-training-Hospital/pkg/api"
+	"github.com/DaniilDomaskanov/golang-training-Hospital/pkg/data"
+	"github.com/DaniilDomaskanov/golang-training-Hospital/pkg/db"
+
+	"golang-training-Hospital/pkg/api"
+
+	"github.com/gorilla/mux"
 )
 
 var (
