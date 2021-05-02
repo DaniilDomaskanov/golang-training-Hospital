@@ -6,11 +6,9 @@ import (
 	"net/http"
 	"os"
 
-	//"github.com/DaniilDomaskanov/golang-training-Hospital/pkg/api"
+	"github.com/DaniilDomaskanov/golang-training-Hospital/pkg/api"
 	"github.com/DaniilDomaskanov/golang-training-Hospital/pkg/data"
 	"github.com/DaniilDomaskanov/golang-training-Hospital/pkg/db"
-
-	"golang-training-Hospital/pkg/api"
 
 	"github.com/gorilla/mux"
 )
