@@ -22,7 +22,7 @@ func TestGetConnection(t *testing.T) {
 	assert.NoError(err, fmt.Errorf("got an error when tried to make connection with database:%w", err))
 }
 
-func TestGetConnection2(t *testing.T) {
+func TestGetConnectionError(t *testing.T) {
 	assert := assert.New(t)
 	password = "roots"
 	_, er := GetConnection(host, port, user, dbname, password, sslmode)

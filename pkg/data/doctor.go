@@ -71,7 +71,6 @@ func (d DoctorData) DeleteDoctor(id int) error {
 	if result.Error != nil {
 		return fmt.Errorf("can't delete doctor to database using id - %d, error: %w", id, result.Error)
 	}
-	fmt.Printf("Doctor with id - %d was deleted succesfull\n", id)
 	return nil
 }
 
@@ -86,10 +85,8 @@ func (d DoctorData) ExecInnerJoin() error {
 		doctorId       int
 		specialityName string
 	)
-	fmt.Println("Resulting table is :")
 	for rows.Next() {
 		rows.Scan(&doctorId, &specialityName)
-		fmt.Println(doctorId, specialityName)
 	}
 	return nil
 }
